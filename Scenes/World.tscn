@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7kwm143hirdy"]
+
+[ext_resource type="Script" path="res://Scripts/RootPivot.cs" id="1_0fx81"]
+[ext_resource type="Script" path="res://Scripts/Area3D.cs" id="2_eqrto"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iglm8"]
+size = Vector3(30, 0, 70.8535)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yrf2o"]
+albedo_color = Color(0.113725, 0.278431, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rp2ru"]
+material = SubResource("StandardMaterial3D_yrf2o")
+size = Vector2(30, 70)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6gakl"]
+size = Vector3(30.0287, 0.646973, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_027ty"]
+size = Vector3(29.7505, 1, 3.03503)
+
+[node name="World" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.99748)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.89209, 0, -20.4268)
+shape = SubResource("BoxShape3D_iglm8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/CollisionShape3D"]
+mesh = SubResource("PlaneMesh_rp2ru")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ground"]
+transform = Transform3D(0.997834, -0.0657863, 0, 0.0373554, 0.566599, 0.823146, -0.0541517, -0.821363, 0.567829, 0, 3.44505, 0)
+
+[node name="RootPivot" type="Marker3D" parent="." node_paths=PackedStringArray("areaNodeToDequeue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00744724, -0.0181785, 0.00982666)
+script = ExtResource("1_0fx81")
+areaNodeToDequeue = NodePath("../Area3D")
+
+[node name="Node3D" type="Node3D" parent="RootPivot"]
+
+[node name="Camera3D" type="Camera3D" parent="RootPivot/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 3)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14454, -6)
+script = ExtResource("2_eqrto")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65382, 0, 0)
+shape = SubResource("BoxShape3D_6gakl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86559, -0.301473, -12.1052)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95883, -0.301473, -22.6553)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95883, -0.301473, -34.7447)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95883, -0.301473, -47.3784)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="SpawnPoint" type="Marker3D" parent="."]
+
+[connection signal="body_entered" from="Area3D" to="RootPivot" method="OnPlayerEnter"]

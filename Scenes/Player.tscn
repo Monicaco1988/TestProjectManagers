@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://3gbbs80b5go0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpmb8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5b1f5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fuqrk"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.52
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w03sl"]
+material = SubResource("StandardMaterial3D_fuqrk")
+radius = 0.1
+height = 0.2
+
+[node name="Multiplayer" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04491, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_hpmb8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_5b1f5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
+mesh = SubResource("CapsuleMesh_w03sl")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.093952, 0, 0.995577, 0, 1, 0, -0.995577, 0, -0.093952, 3.13317, 2.42621, 0)

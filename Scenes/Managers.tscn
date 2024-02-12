@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cifhpvrccjon"]
+
+[ext_resource type="PackedScene" uid="uid://efwej8wx8g7a" path="res://Scenes/game_manager.tscn" id="1_bcqqk"]
+[ext_resource type="PackedScene" uid="uid://bpwtdgjmnmxvn" path="res://Scenes/Menumanager.tscn" id="2_3vmef"]
+
+[node name="Managers" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerManager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AudioManager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UIManager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GameManager" parent="." instance=ExtResource("1_bcqqk")]
+
+[node name="MenuManager" parent="." instance=ExtResource("2_3vmef")]

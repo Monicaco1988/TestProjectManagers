@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpwtdgjmnmxvn"]
+
+[ext_resource type="Script" path="res://Scripts/MenuManager.cs" id="1_kh37c"]
+
+[node name="MenuManager" type="Control" node_paths=PackedStringArray("_pressButton")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_kh37c")
+_pressButton = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 201.0
+offset_right = 683.0
+offset_bottom = 277.0
+text = "Start"
+
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]
