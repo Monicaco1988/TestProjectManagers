@@ -1,21 +1,96 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpwtdgjmnmxvn"]
+[gd_scene load_steps=5 format=3 uid="uid://bpwtdgjmnmxvn"]
 
 [ext_resource type="Script" path="res://Scripts/MenuManager.cs" id="1_kh37c"]
+[ext_resource type="Texture2D" uid="uid://60ip2nyy30hl" path="res://Art/MenuManager/pexels-pixabay-531880.jpg" id="2_ars5q"]
+
+[sub_resource type="SystemFont" id="SystemFont_2tpmv"]
+font_names = PackedStringArray("Chiller")
+
+[sub_resource type="SystemFont" id="SystemFont_cgk8v"]
+font_names = PackedStringArray("Impact")
 
 [node name="MenuManager" type="Control" node_paths=PackedStringArray("_pressButton")]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 script = ExtResource("1_kh37c")
-_pressButton = NodePath("Button")
+_pressButton = NodePath("")
 
-[node name="Button" type="Button" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 520.0
-offset_top = 201.0
-offset_right = 683.0
-offset_bottom = 277.0
-text = "Start"
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_ars5q")
+expand_mode = 1
 
-[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="Seperator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 18
+theme_override_constants/shadow_offset_y = 18
+theme_override_constants/outline_size = 24
+theme_override_fonts/font = SubResource("SystemFont_2tpmv")
+theme_override_font_sizes/font_size = 256
+text = "SAVING GRANDMA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Seperator2" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = SubResource("SystemFont_cgk8v")
+theme_override_font_sizes/font_size = 92
+text = "START GAME"
+flat = true
+
+[node name="Seperator3" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = SubResource("SystemFont_cgk8v")
+theme_override_font_sizes/font_size = 92
+text = "QUIT"
+flat = true
