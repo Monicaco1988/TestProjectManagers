@@ -28,4 +28,5 @@ offset_bottom = 40.0
 
 [node name="GameManager" parent="." instance=ExtResource("1_bcqqk")]
 
-[node name="MenuManager" parent="." instance=ExtResource("2_3vmef")]
+[node name="MenuManager" parent="." node_paths=PackedStringArray("_GetSignalFromGameManager") instance=ExtResource("2_3vmef")]
+_GetSignalFromGameManager = NodePath("../GameManager")
