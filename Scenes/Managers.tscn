@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cifhpvrccjon"]
+[gd_scene load_steps=5 format=3 uid="uid://cifhpvrccjon"]
 
 [ext_resource type="PackedScene" uid="uid://efwej8wx8g7a" path="res://Scenes/game_manager.tscn" id="1_bcqqk"]
 [ext_resource type="PackedScene" uid="uid://bpwtdgjmnmxvn" path="res://Scenes/Menumanager.tscn" id="2_3vmef"]
+[ext_resource type="PackedScene" uid="uid://b7b44t7hgpqdo" path="res://Scenes/audio_stream_player.tscn" id="2_xhu2v"]
+[ext_resource type="PackedScene" uid="uid://c7kwm143hirdy" path="res://Scenes/World.tscn" id="3_xy340"]
 
 [node name="Managers" type="Control"]
 layout_mode = 3
@@ -11,12 +13,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayerManager" type="Control" parent="."]
+[node name="GameManager" parent="." instance=ExtResource("1_bcqqk")]
+
+[node name="AudioManager" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="AudioManager" type="Control" parent="."]
+[node name="AudioStreamPlayer" parent="AudioManager" instance=ExtResource("2_xhu2v")]
+autoplay = true
+
+[node name="MenuManager" parent="." instance=ExtResource("2_3vmef")]
+
+[node name="PlayerManager" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -26,7 +35,9 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="GameManager" parent="." instance=ExtResource("1_bcqqk")]
+[node name="LevelManager" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="MenuManager" parent="." node_paths=PackedStringArray("_GetSignalFromGameManager") instance=ExtResource("2_3vmef")]
-_GetSignalFromGameManager = NodePath("../GameManager")
+[node name="World" parent="LevelManager" instance=ExtResource("3_xy340")]

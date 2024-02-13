@@ -11,13 +11,12 @@ subpixel_positioning = 0
 font_names = PackedStringArray("Impact")
 subpixel_positioning = 0
 
-[node name="MenuManager" type="Control" node_paths=PackedStringArray("_pressButton")]
+[node name="MenuManager" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 script = ExtResource("1_kh37c")
-_pressButton = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Button")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0

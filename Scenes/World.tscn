@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7kwm143hirdy"]
+[gd_scene load_steps=13 format=3 uid="uid://c7kwm143hirdy"]
 
 [ext_resource type="Script" path="res://Scripts/RootPivot.cs" id="1_0fx81"]
 [ext_resource type="Script" path="res://Scripts/Area3D.cs" id="2_eqrto"]
+[ext_resource type="Script" path="res://Scripts/CharacterBody3D2.cs" id="3_3ia2m"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iglm8"]
 size = Vector3(30, 0, 70.8535)
@@ -19,6 +20,19 @@ size = Vector3(30.0287, 0.646973, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_027ty"]
 size = Vector3(29.7505, 1, 3.03503)
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpmb8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5b1f5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fuqrk"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.52
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w03sl"]
+material = SubResource("StandardMaterial3D_fuqrk")
+radius = 0.1
+height = 0.2
+
 [node name="World" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -34,10 +48,11 @@ mesh = SubResource("PlaneMesh_rp2ru")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Ground"]
 transform = Transform3D(0.997834, -0.0657863, 0, 0.0373554, 0.566599, 0.823146, -0.0541517, -0.821363, 0.567829, 0, 3.44505, 0)
 
-[node name="RootPivot" type="Marker3D" parent="." node_paths=PackedStringArray("areaNodeToDequeue")]
+[node name="RootPivot" type="Marker3D" parent="." node_paths=PackedStringArray("areaNodeToDequeue", "_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00744724, -0.0181785, 0.00982666)
 script = ExtResource("1_0fx81")
 areaNodeToDequeue = NodePath("../Area3D")
+_player = NodePath("../Multiplayer")
 
 [node name="Node3D" type="Node3D" parent="RootPivot"]
 
@@ -69,5 +84,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95883, -0.301473, -47.3784)
 shape = SubResource("BoxShape3D_027ty")
 
 [node name="SpawnPoint" type="Marker3D" parent="."]
+
+[node name="Multiplayer" type="Node3D" parent="."]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Multiplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04491, 0)
+script = ExtResource("3_3ia2m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Multiplayer/CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_hpmb8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Multiplayer/CharacterBody3D/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_5b1f5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Multiplayer/CharacterBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
+mesh = SubResource("CapsuleMesh_w03sl")
+
+[node name="CharacterBody3D2" type="CharacterBody3D" parent="Multiplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04491, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Multiplayer/CharacterBody3D2"]
+shape = SubResource("CapsuleShape3D_hpmb8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Multiplayer/CharacterBody3D2/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_5b1f5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Multiplayer/CharacterBody3D2/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
+mesh = SubResource("CapsuleMesh_w03sl")
 
 [connection signal="body_entered" from="Area3D" to="RootPivot" method="OnPlayerEnter"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7b44t7hgpqdo"]
+
+[ext_resource type="AudioStream" uid="uid://bvd0p4dpnpck" path="res://Audio/stranger-things-124008.mp3" id="1_fvdtx"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_fvdtx")

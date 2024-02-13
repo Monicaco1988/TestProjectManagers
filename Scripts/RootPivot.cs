@@ -4,7 +4,7 @@ using System;
 public partial class RootPivot : Marker3D
 {
 
-private int playerId = 1; // seems like each player is given an index so player 1 is index 0, player 2 is index 1 etc. good to know.
+private int playerId = 0; // seems like each player is given an index so player 1 is index 0, player 2 is index 1 etc. good to know.
 
 
 //this is not necessary but it was to index every collisionshape, but as the collisionshapes are destroyed they are resett on the index and the next collision shape is index 0 again.
@@ -19,16 +19,18 @@ public Area3D areaNodeToDequeue;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		//sets the camera pivot to the leading car position, use of "this" keyword obs
-		this.GlobalPosition = _player.GetChild<CharacterBody3D>(0).GlobalPosition; //_player.GetChild<CharacterBody3D>(playerId).GlobalPosition
+        //sets the camera pivot to the leading car position, use of "this" keyword obs
+        this.GlobalPosition = _player.GetChild<CharacterBody3D>(playerId).GlobalPosition; //_player.GetChild<CharacterBody3D>(playerId).GlobalPosition
 	}
 
 		public void OnPlayerEnter(Node3D playerContainer)
 	{
-		//debugg and ID of body exiting checkpoint
-		GD.Print("Detection Entering" + _player.GetChild<CharacterBody3D>(1).Name);
+        //debugg and ID of body exiting checkpoint
+        GD.Print("Detection Entering" + _player.GetChild<CharacterBody3D>(playerId).Name);
+        //GD.Print(playerContainer.Name);
 
-		if(playerContainer.Name == _player.GetChild<CharacterBody3D>(1).Name)
+
+        if (playerContainer.Name == _player.GetChild<CharacterBody3D>(1).Name)
 		{//this.GlobalPosition = _player.GetChild<CharacterBody3D>(1).GlobalPosition; Not needed for smooooth transition!!!
 		playerId = 1;
 		}
