@@ -77,6 +77,23 @@ public partial class GameManager : Node
        // EmitSignal(nameof(UpdateGameState2), 5);
     }
 
+    // this function is an inbuilt function that allows us to use inputs to trigger events
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        // if am @event is the triggered key (in this case the escape key" then this loop will trigger 
+        if(@event is InputEventKey eventKey)
+        {
+            // last nested lood will trigger if the eventKey is pressed down (activated) and the eventKey built in keycode is == the escape Key
+            if(eventKey.Pressed && eventKey.Keycode == Key.Escape)
+            {
+                //this only gets the Quit function from the main treenode and closes the program, it probably returns 0 if the main is of int type (int main, where the game starts from)
+                GetTree().Quit();
+            }
+
+        }
+
+    }
+
 }
 
 public enum GameState

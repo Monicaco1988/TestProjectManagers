@@ -27,15 +27,16 @@ public Area3D areaNodeToDequeue;
 	{
         //debugg and ID of body exiting checkpoint
         GD.Print("Detection Entering" + _player.GetChild<CharacterBody3D>(playerId).Name);
-        //GD.Print(playerContainer.Name);
+		//GD.Print(playerContainer.Name);
 
+		GD.Print(playerContainer.Name);
 
-        if (playerContainer.Name == _player.GetChild<CharacterBody3D>(1).Name)
+        if (playerContainer.Name == _player.GetChild<Godot.CharacterBody3D>(1).Name) // for some reason it wants explicitly use Godot.CharacterBody3D instead of CharacterBody3D. probably because there are several CharacterBody3Ds
 		{//this.GlobalPosition = _player.GetChild<CharacterBody3D>(1).GlobalPosition; Not needed for smooooth transition!!!
 		playerId = 1;
 		}
-		else if (playerContainer.Name == _player.GetChild<CharacterBody3D>(0).Name)
-		{//this.GlobalPosition = _player.GetChild<CharacterBody3D>(0).GlobalPosition; Not needed for smooooth transition!!!
+		else if (playerContainer.Name == _player.GetChild<Godot.CharacterBody3D>(0).Name)// for some reason it wants explicitly use Godot.CharacterBody3D instead of CharacterBody3D. probably because there are several CharacterBody3Ds
+        {//this.GlobalPosition = _player.GetChild<CharacterBody3D>(0).GlobalPosition; Not needed for smooooth transition!!!
 		playerId = 0;
 		}
 

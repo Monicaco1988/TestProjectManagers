@@ -1,9 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://cifhpvrccjon"]
+[gd_scene load_steps=16 format=3 uid="uid://cifhpvrccjon"]
 
 [ext_resource type="PackedScene" uid="uid://efwej8wx8g7a" path="res://Scenes/game_manager.tscn" id="1_bcqqk"]
 [ext_resource type="PackedScene" uid="uid://bpwtdgjmnmxvn" path="res://Scenes/Menumanager.tscn" id="2_3vmef"]
 [ext_resource type="PackedScene" uid="uid://b7b44t7hgpqdo" path="res://Scenes/audio_stream_player.tscn" id="2_xhu2v"]
-[ext_resource type="PackedScene" uid="uid://c7kwm143hirdy" path="res://Scenes/World.tscn" id="3_xy340"]
+[ext_resource type="Script" path="res://Scripts/RootPivot.cs" id="4_hkhy2"]
+[ext_resource type="Script" path="res://Scripts/Area3D.cs" id="5_joeg1"]
+[ext_resource type="Script" path="res://Scripts/CharacterBody3D2.cs" id="6_mfkmn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iglm8"]
+size = Vector3(30, 0, 70.8535)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yrf2o"]
+albedo_color = Color(0.113725, 0.278431, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rp2ru"]
+material = SubResource("StandardMaterial3D_yrf2o")
+size = Vector2(30, 70)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6gakl"]
+size = Vector3(30.0287, 0.646973, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_027ty"]
+size = Vector3(29.7505, 1, 3.03503)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpmb8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5b1f5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fuqrk"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.52
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_w03sl"]
+material = SubResource("StandardMaterial3D_fuqrk")
+radius = 0.1
+height = 0.2
 
 [node name="Managers" type="Control"]
 layout_mode = 3
@@ -40,4 +71,83 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="World" parent="LevelManager" instance=ExtResource("3_xy340")]
+[node name="World" type="Node3D" parent="LevelManager"]
+
+[node name="Ground" type="StaticBody3D" parent="LevelManager/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.99748)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelManager/World/Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.89209, 0, -20.4268)
+shape = SubResource("BoxShape3D_iglm8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelManager/World/Ground/CollisionShape3D"]
+mesh = SubResource("PlaneMesh_rp2ru")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="LevelManager/World/Ground"]
+transform = Transform3D(0.997834, -0.0657863, 0, 0.0373554, 0.566599, 0.823146, -0.0541517, -0.821363, 0.567829, 0, 3.44505, 0)
+
+[node name="RootPivot" type="Marker3D" parent="LevelManager/World" node_paths=PackedStringArray("areaNodeToDequeue", "_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00744724, -0.0181785, 0.00982666)
+script = ExtResource("4_hkhy2")
+areaNodeToDequeue = NodePath("../Area3D")
+_player = NodePath("../Multiplayer")
+
+[node name="Node3D" type="Node3D" parent="LevelManager/World/RootPivot"]
+
+[node name="Camera3D" type="Camera3D" parent="LevelManager/World/RootPivot/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 3)
+
+[node name="Area3D" type="Area3D" parent="LevelManager/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14454, -6)
+script = ExtResource("5_joeg1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelManager/World/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65382, 0, 0)
+shape = SubResource("BoxShape3D_6gakl")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="LevelManager/World/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86559, -0.301473, -12.1052)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="LevelManager/World/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95883, -0.301473, -22.6553)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="LevelManager/World/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95883, -0.301473, -34.7447)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="LevelManager/World/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95883, -0.301473, -47.3784)
+shape = SubResource("BoxShape3D_027ty")
+
+[node name="Multiplayer" type="Node3D" parent="LevelManager/World"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="LevelManager/World/Multiplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04491, 0)
+script = ExtResource("6_mfkmn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelManager/World/Multiplayer/CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_hpmb8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelManager/World/Multiplayer/CharacterBody3D/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_5b1f5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="LevelManager/World/Multiplayer/CharacterBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
+mesh = SubResource("CapsuleMesh_w03sl")
+
+[node name="CharacterBody3D2" type="CharacterBody3D" parent="LevelManager/World/Multiplayer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04491, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelManager/World/Multiplayer/CharacterBody3D2"]
+shape = SubResource("CapsuleShape3D_hpmb8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelManager/World/Multiplayer/CharacterBody3D2/CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_5b1f5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="LevelManager/World/Multiplayer/CharacterBody3D2/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
+mesh = SubResource("CapsuleMesh_w03sl")
+
+[connection signal="body_entered" from="LevelManager/World/Area3D" to="LevelManager/World/RootPivot" method="OnPlayerEnter"]
