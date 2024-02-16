@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://c7kwm143hirdy"]
+[gd_scene load_steps=15 format=3 uid="uid://c7kwm143hirdy"]
 
 [ext_resource type="Script" path="res://Scripts/RootPivot.cs" id="1_0fx81"]
 [ext_resource type="Script" path="res://Scripts/Area3D.cs" id="2_eqrto"]
 [ext_resource type="Script" path="res://Scripts/CharacterBody3D2.cs" id="3_3ia2m"]
+[ext_resource type="Script" path="res://Scripts/CharacterBody3D.cs" id="4_ub6ii"]
+[ext_resource type="PackedScene" uid="uid://cnxuh3jecbwkp" path="res://Scenes/Explosion.tscn" id="5_wm55f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iglm8"]
 size = Vector3(30, 0, 70.8535)
@@ -102,7 +104,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
 mesh = SubResource("CapsuleMesh_w03sl")
 
 [node name="CharacterBody3D2" type="CharacterBody3D" parent="Multiplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04491, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31303, 2.04491, 0)
+script = ExtResource("4_ub6ii")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Multiplayer/CharacterBody3D2"]
 shape = SubResource("CapsuleShape3D_hpmb8")
@@ -114,4 +117,9 @@ mesh = SubResource("CapsuleMesh_5b1f5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
 mesh = SubResource("CapsuleMesh_w03sl")
 
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="Multiplayer/CharacterBody3D2"]
+
+[node name="GPUParticles3D" parent="Multiplayer/CharacterBody3D2" instance=ExtResource("5_wm55f")]
+
 [connection signal="body_entered" from="Area3D" to="RootPivot" method="OnPlayerEnter"]
+[connection signal="screen_exited" from="Multiplayer/CharacterBody3D2/VisibleOnScreenEnabler3D" to="Multiplayer/CharacterBody3D2" method="OnScreenExit"]

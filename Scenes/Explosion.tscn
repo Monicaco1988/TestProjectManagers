@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnxuh3jecbwkp"]
+
+[sub_resource type="CurveTexture" id="CurveTexture_4mqx5"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c8n37"]
+spread = 180.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+linear_accel_max = 10.0
+linear_accel_curve = SubResource("CurveTexture_4mqx5")
+
+[sub_resource type="SphereMesh" id="SphereMesh_x8u8q"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_bvf72"]
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+emitting = false
+amount = 50
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_c8n37")
+draw_passes = 2
+draw_pass_1 = SubResource("SphereMesh_x8u8q")
+draw_pass_2 = SubResource("SphereMesh_bvf72")

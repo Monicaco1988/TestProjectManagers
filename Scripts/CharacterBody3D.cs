@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[Tool]
 public partial class CharacterBody3D : Godot.CharacterBody3D
 {
 
@@ -46,4 +47,16 @@ public partial class CharacterBody3D : Godot.CharacterBody3D
 		Velocity = velocity;
 		MoveAndSlide();
 	}
+
+	public void OnScreenExit()
+	{
+        //_GetSignalFromGameManager = GetNode<GameManager>("/root/Managers/GameManager");
+
+
+        GD.Print("Exited");
+		this.Hide();
+	
+
+	}
+
 }
