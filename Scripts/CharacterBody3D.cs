@@ -1,11 +1,13 @@
 using Godot;
 using System;
 
-[Tool]
+[Tool] // this makes me able to move the char in the editor instead of the control display when program is running
 public partial class CharacterBody3D : Godot.CharacterBody3D
 {
 
-	public const float Speed = 5.0f;
+	GpuParticles3D explosion;
+
+    public const float Speed = 5.0f;
 	public const float JumpVelocity = 4.5f;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -15,6 +17,7 @@ public partial class CharacterBody3D : Godot.CharacterBody3D
     public override void _Ready()
     {
         base._Ready();
+		explosion = GetNode<GpuParticles3D>("/root/World/Marker3D/Node3D/GPUParticles3D");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -50,9 +53,9 @@ public partial class CharacterBody3D : Godot.CharacterBody3D
 
 	public void OnScreenExit()
 	{
-        //_GetSignalFromGameManager = GetNode<GameManager>("/root/Managers/GameManager");
+		//_GetSignalFromGameManager = GetNode<GameManager>("/root/Managers/GameManager");
 
-
+		explosion.Emitting = true;
         GD.Print("Exited");
 		this.Hide();
 	

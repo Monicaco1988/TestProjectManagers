@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://c7kwm143hirdy"]
+[gd_scene load_steps=16 format=3 uid="uid://c7kwm143hirdy"]
 
 [ext_resource type="Script" path="res://Scripts/RootPivot.cs" id="1_0fx81"]
 [ext_resource type="Script" path="res://Scripts/Area3D.cs" id="2_eqrto"]
 [ext_resource type="Script" path="res://Scripts/CharacterBody3D2.cs" id="3_3ia2m"]
 [ext_resource type="Script" path="res://Scripts/CharacterBody3D.cs" id="4_ub6ii"]
+[ext_resource type="Script" path="res://Scenes/Marker3DExplosion.cs" id="5_mv2sl"]
 [ext_resource type="PackedScene" uid="uid://cnxuh3jecbwkp" path="res://Scenes/Explosion.tscn" id="5_wm55f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iglm8"]
@@ -59,7 +60,7 @@ _player = NodePath("../Multiplayer")
 [node name="Node3D" type="Node3D" parent="RootPivot"]
 
 [node name="Camera3D" type="Camera3D" parent="RootPivot/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 3)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 9, 7)
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14454, -6)
@@ -104,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58381, 0.298801, 0)
 mesh = SubResource("CapsuleMesh_w03sl")
 
 [node name="CharacterBody3D2" type="CharacterBody3D" parent="Multiplayer"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31303, 2.04491, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.34809, 1.00094, 1.30834)
 script = ExtResource("4_ub6ii")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Multiplayer/CharacterBody3D2"]
@@ -119,7 +120,16 @@ mesh = SubResource("CapsuleMesh_w03sl")
 
 [node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="Multiplayer/CharacterBody3D2"]
 
-[node name="GPUParticles3D" parent="Multiplayer/CharacterBody3D2" instance=ExtResource("5_wm55f")]
+[node name="Marker3D" type="Marker3D" parent="." node_paths=PackedStringArray("_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31303, 1.00019, 0)
+script = ExtResource("5_mv2sl")
+_player = NodePath("../Multiplayer/CharacterBody3D2")
+
+[node name="Node3D" type="Node3D" parent="Marker3D"]
+
+[node name="GPUParticles3D" parent="Marker3D/Node3D" instance=ExtResource("5_wm55f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.743848, 1.00019, 0.25835)
+visibility_aabb = AABB(-5.06341, -1.99998, -6, 10.1268, 4, 12)
 
 [connection signal="body_entered" from="Area3D" to="RootPivot" method="OnPlayerEnter"]
 [connection signal="screen_exited" from="Multiplayer/CharacterBody3D2/VisibleOnScreenEnabler3D" to="Multiplayer/CharacterBody3D2" method="OnScreenExit"]
